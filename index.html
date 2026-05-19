@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bảng Điều Khiển Quản Lý Kho</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <h3>KHO HÀNG N2</h3>
+        </div>
+        <ul class="sidebar-menu">
+            <li class="menu-item active" onclick="switchTab('tab-hanghoa')">📦 Hàng Hóa</li>
+            <li class="menu-item" onclick="switchTab('tab-nhacungcap')">🏢 Nhà Cung Cấp</li>
+            <li class="menu-item" onclick="switchTab('tab-khachhang')">👥 Khách Hàng</li>
+            <li class="menu-item" onclick="switchTab('tab-nhanvien')">🪪 Nhân Viên</li>
+            <li class="menu-item" onclick="switchTab('tab-phieunhap')">📥 Phiếu Nhập</li>
+            <li class="menu-item" onclick="switchTab('tab-phieuxuat')">📤 Phiếu Xuất</li>
+            <li class="logout-item"><a href="login.html">🚪 Đăng xuất</a></li>
+        </ul>
+    </aside>
+
+    <main class="main-content">
+        <header class="top-bar">
+            <div class="search-box">
+                <input type="text" id="globalSearch" placeholder="🔍 Tìm nhanh dữ liệu trong bảng này..." onkeyup="searchActiveTable()">
+            </div>
+            <div class="user-profile">
+                <span>Xin chào, <b>Quản trị viên (Nhóm 2)</b></span>
+            </div>
+        </header>
+
+        <div id="tab-hanghoa" class="tab-panel active">
+            <div class="panel-header">
+                <h2>Quản Lý Danh Mục Hàng Hóa (15 Mặt Hàng)</h2>
+                <button class="btn btn-primary" onclick="openAddModal('hanghoa')">+ Thêm Hàng Hóa</button>
+            </div>
+            <div class="table-responsive">
+                <table class="data-table" id="table-hanghoa">
+                    <thead>
+                        <tr><th>Mã Hàng</th><th>Tên Hàng Hóa</th><th>Loại Hàng</th><th>ĐVT</th><th>Giá Nhập (VND)</th><th>Giá Bán (VND)</th><th>Hành động</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><span class="badge">MH001</span></td><td>Gạo Tám Thơm Điện Biên</td><td>Lương thực</td><td>Kg</td><td>15,000</td><td>20,000</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'hanghoa')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">MH002</span></td><td>Dầu Ăn Neptune Light 1L</td><td>Thực phẩm</td><td>Chai</td><td>40,000</td><td>50,000</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'hanghoa')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">MH003</span></td><td>Mì Hảo Hảo Tôm Chua Cay</td><td>Thực phẩm</td><td>Thùng</td><td>105,000</td><td>120,000</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'hanghoa')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">MH004</span></td><td>Nước mắm Nam Ngư 750ml</td><td>Gia vị</td><td>Chai</td><td>30,000</td><td>42,000</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'hanghoa')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">MH005</span></td><td>Đường tinh luyện Biên Hòa</td><td>Gia vị</td><td>Kg</td><td>20,000</td><td>28,000</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'hanghoa')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">MH006</span></td><td>Nồi Cơm Điện Toshiba 1.8L</td><td>Gia dụng</td><td>Cái</td><td>950,000</td><td>1,150,000</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'hanghoa')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">MH007</span></td><td>Bếp từ đơn Sunhouse SHD6160</td><td>Gia dụng</td><td>Cái</td><td>600,000</td><td>850,000</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'hanghoa')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">MH008</span></td><td>Bột Giặt Omo Matic 4.5kg</td><td>Hóa mỹ phẩm</td><td>Túi</td><td>120,000</td><td>150,000</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'hanghoa')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">MH009</span></td><td>Nước xả vải Comfort 3.2L</td><td>Hóa mỹ phẩm</td><td>Túi</td><td>135,000</td><td>170,000</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'hanghoa')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">MH010</span></td><td>Sữa tươi Vinamilk ít đường</td><td>Thực phẩm</td><td>Thùng</td><td>290,000</td><td>335,000</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'hanghoa')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">MH011</span></td><td>Tương ớt Chinsu chai 250g</td><td>Gia vị</td><td>Chai</td><td>11,000</td><td>15,000</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'hanghoa')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">MH012</span></td><td>Nước rửa chén Sunlight Chanh</td><td>Hóa mỹ phẩm</td><td>Chai</td><td>22,000</td><td>30,000</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'hanghoa')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">MH013</span></td><td>Quạt đứng Senko GTS1628</td><td>Gia dụng</td><td>Cái</td><td>320,000</td><td>410,000</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'hanghoa')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">MH014</span></td><td>Hạt nêm Knorr thịt thăn 900g</td><td>Gia vị</td><td>Gói</td><td>65,000</td><td>82,000</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'hanghoa')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">MH015</span></td><td>Bánh quy Cosy Kinh Đô marie</td><td>Thực phẩm</td><td>Hộp</td><td>38,000</td><td>48,000</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'hanghoa')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="tab-nhacungcap" class="tab-panel">
+            <div class="panel-header">
+                <h2>Quản Lý Nhà Cung Cấp (15 Đối Tác)</h2>
+                <button class="btn btn-primary" onclick="openAddModal('nhacungcap')">+ Thêm Nhà Cung Cấp</button>
+            </div>
+            <div class="table-responsive">
+                <table class="data-table" id="table-nhacungcap">
+                    <thead>
+                        <tr><th>Mã NCC</th><th>Tên Nhà Cung Cấp</th><th>Địa Chỉ</th><th>Số Điện Thoại</th><th>Hành động</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><span class="badge">NCC001</span></td><td>Tổng Công ty Lương thực Miền Bắc</td><td>Hai Bà Trưng, Hà Nội</td><td>0243.888.999</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'nhacungcap')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">NCC002</span></td><td>Tập đoàn Dầu thực vật Cái Lân</td><td>KCN Cái Lân, Quảng Ninh</td><td>0203.345.678</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'nhacungcap')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">NCC003</span></td><td>Công ty Cổ phần Acecook Việt Nam</td><td>Tân Bình, TP. Hồ Chí Minh</td><td>0283.815.406</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'nhacungcap')">Sửa</button><button class="btn-action btn-edit" onclick="openEditModal(this, 'nhacungcap')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">NCC004</span></td><td>Công ty TNHH Quốc tế Unilever VN</td><td>Quận 7, TP. Hồ Chí Minh</td><td>0285.413.568</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'nhacungcap')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">NCC005</span></td><td>Tập đoàn Sunhouse Toàn Cầu</td><td>Thạch Thất, Hà Nội</td><td>0243.733.996</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'nhacungcap')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">NCC006</span></td><td>Công ty Cổ phần Hàng tiêu dùng Masan</td><td>Quận 1, TP. Hồ Chí Minh</td><td>0286.255.566</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'nhacungcap')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">NCC007</span></td><td>Công ty Cổ phần Sữa Việt Nam Vinamilk</td><td>Quận 7, TP. Hồ Chí Minh</td><td>0285.415.555</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'nhacungcap')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">NCC008</span></td><td>Công ty TNHH Kinh Đô Việt Nam</td><td>Bình Dương</td><td>0274.375.566</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'nhacungcap')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">NCC009</span></td><td>Công ty TNHH Điện tử Toshiba VN</td><td>Quận 1, TP. Hồ Chí Minh</td><td>0283.824.288</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'nhacungcap')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">NCC010</span></td><td>Công ty Điện gia dụng Senko VN</td><td>Bình Tân, TP. Hồ Chí Minh</td><td>0283.762.024</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'nhacungcap')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">NCC011</span></td><td>Nhà máy Đường Biên Hòa</td><td>Biên Hòa, Đồng Nai</td><td>0251.383.615</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'nhacungcap')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">NCC012</span></td><td>Đại lý Phân phối Nông sản Việt</td><td>Hoàng Mai, Hà Nội</td><td>0912.999.111</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'nhacungcap')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">NCC013</span></td><td>Nhà cung ứng Gia vị miền Trung</td><td>Hải Châu, Đà Nẵng</td><td>0236.355.777</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'nhacungcap')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">NCC014</span></td><td>Bách Hóa Tổng Hợp Minh Quân</td><td>Thanh Xuân, Hà Nội</td><td>0944.555.666</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'nhacungcap')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">NCC015</span></td><td>Hệ thống Phân phối Thiết bị Điện máy Sài Gòn</td><td>Quận 3, TP. Hồ Chí Minh</td><td>0283.999.888</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'nhacungcap')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="tab-khachhang" class="tab-panel">
+            <div class="panel-header">
+                <h2>Quản Lý Danh Sách Khách Hàng (15 Khách Hàng)</h2>
+                <button class="btn btn-primary" onclick="openAddModal('khachhang')">+ Thêm Khách Hàng</button>
+            </div>
+            <div class="table-responsive">
+                <table class="data-table" id="table-khachhang">
+                    <thead>
+                        <tr><th>Mã KH</th><th>Tên Khách Hàng</th><th>Địa Chỉ</th><th>Số Điện Thoại</th><th>Email</th><th>Hành động</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><span class="badge">KH001</span></td><td>Nguyễn Văn An</td><td>Cầu Giấy, Hà Nội</td><td>0912.345.678</td><td>an.nv@gmail.com</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'khachhang')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">KH002</span></td><td>Trần Thị Bình</td><td>Đống Đa, Hà Nội</td><td>0988.777.666</td><td>binh.tt@gmail.com</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'khachhang')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">KH003</span></td><td>Lê Hoàng Long</td><td>Quận 1, TP. Hồ Chí Minh</td><td>0903.111.222</td><td>long.lh@gmail.com</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'khachhang')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">KH004</span></td><td>Phạm Minh Đức</td><td>Hải An, Hải Phòng</td><td>0945.888.112</td><td>duc.pm@gmail.com</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'khachhang')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">KH005</span></td><td>Vũ Thu Thảo</td><td>Thanh Xuân, Hà Nội</td><td>0976.223.344</td><td>thao.vt@gmail.com</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'khachhang')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">KH006</span></td><td>Đỗ Hoàng Bách</td><td>Hoàn Kiếm, Hà Nội</td><td>0915.999.000</td><td>bach.dh@gmail.com</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'khachhang')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">KH007</span></td><td>Hoàng Ngọc Diệp</td><td>Ba Đình, Hà Nội</td><td>0934.123.456</td><td>diep.hn@hotmail.com</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'khachhang')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">KH008</span></td><td>Bùi Quốc Khánh</td><td>TP. Bắc Ninh</td><td>0965.444.555</td><td>khanh.bq@yahoo.com</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'khachhang')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">KH009</span></td><td>Nguyễn Thị Mai</td><td>TP. Vinh, Nghệ An</td><td>0919.828.181</td><td>mai.nt@gmail.com</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'khachhang')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">KH010</span></td><td>Phan Thanh Tùng</td><td>Liên Chiểu, Đà Nẵng</td><td>0905.777.888</td><td>tung.pt@outlook.com</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'khachhang')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">KH011</span></td><td>Nguyễn Thúy Hạnh</td><td>Quận 3, TP. Hồ Chí Minh</td><td>0938.441.122</td><td>hanh.nt@gmail.com</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'khachhang')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">KH012</span></td><td>Dương Đình Vinh</td><td>Lạng Sơn</td><td>0982.332.211</td><td>vinh.dd@gmail.com</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'khachhang')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">KH013</span></td><td>Lý Chí Thành</td><td>Quận 5, TP. Hồ Chí Minh</td><td>0909.667.788</td><td>thanh.lc@gmail.com</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'khachhang')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">KH014</span></td><td>Trịnh Công Sơn</td><td>Thành phố Huế</td><td>0947.121.212</td><td>son.tc@gmail.com</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'khachhang')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">KH015</span></td><td>Vương Quốc Hải</td><td>Hạ Long, Quảng Ninh</td><td>0913.554.433</td><td>hai.vq@gmail.com</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'khachhang')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="tab-nhanvien" class="tab-panel">
+            <div class="panel-header">
+                <h2>Quản Lý Đội Ngũ Nhân Viên (15 Nhân Viên)</h2>
+                <button class="btn btn-primary" onclick="openAddModal('nhanvien')">+ Thêm Nhân Viên</button>
+            </div>
+            <div class="table-responsive">
+                <table class="data-table" id="table-nhanvien">
+                    <thead>
+                        <tr><th>Mã NV</th><th>Họ Tên</th><th>Chức Vụ</th><th>Tài Khoản</th><th>Quyền</th><th>Hành động</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><span class="badge">NV001</span></td><td>Phạm Văn Cự</td><td>Giảng viên hướng dẫn</td><td>cu.pv</td><td>Admin Tổng</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'nhanvien')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">NV002</span></td><td>Khổng Đức Bình</td><td>Trưởng ban kiểm kho</td><td>binh.kd</td><td>Admin</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'nhanvien')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">NV003</span></td><td>Phùng Hoàng Khoa</td><td>Kế toán kho hàng</td><td>khoa.ph</td><td>User</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'nhanvien')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">NV004</span></td><td>Đinh Quốc Tuấn</td><td>Nhân viên điều phối xuất</td><td>tuan.dq</td><td>User</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'nhanvien')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">NV005</span></td><td>Đặng Nguyên Bách</td><td>Thủ kho phụ trách nhập</td><td>bach.dn</td><td>User</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'nhanvien')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">NV006</span></td><td>Nguyễn Hoàng Long</td><td>Giám sát ca ngày</td><td>long.nh</td><td>Admin</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'nhanvien')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">NV007</span></td><td>Trần Minh Quân</td><td>Giám sát ca đêm</td><td>quan.tm</td><td>User</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'nhanvien')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">NV008</span></td><td>Lê Thị Hương</td><td>Nhân viên dán nhãn</td><td>huong.lt</td><td>User</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'nhanvien')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">NV009</span></td><td>Nguyễn Đình Trọng</td><td>Nhân viên bốc dỡ</td><td>trong.nd</td><td>User</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'nhanvien')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">NV010</span></td><td>Phạm Thanh Hà</td><td>Nhân viên văn phòng kho</td><td>ha.pt</td><td>User</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'nhanvien')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">NV011</span></td><td>Vũ Đức Thịnh</td><td>Nhân viên vận chuyển 1</td><td>thinh.vd</td><td>User</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'nhanvien')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">NV012</span></td><td>Đỗ Văn Hùng</td><td>Nhân viên vận chuyển 2</td><td>hung.dv</td><td>User</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'nhanvien')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">NV013</span></td><td>Lý Mỹ Linh</td><td>Kế toán công nợ kho</td><td>linh.lm</td><td>User</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'nhanvien')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">NV014</span></td><td>Trần Hoàng Giang</td><td>Bảo vệ tổng kho</td><td>giang.th</td><td>User</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'nhanvien')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">NV015</span></td><td>Nguyễn Quốc Bảo</td><td>Kỹ thuật viên hệ thống</td><td>bao.nq</td><td>Admin</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'nhanvien')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="tab-phieunhap" class="tab-panel">
+            <div class="panel-header">
+                <h2>Quản Lý Lịch Sử Nhập Kho (15 Lịch Sử)</h2>
+                <button class="btn btn-primary" onclick="openAddModal('phieunhap')">+ Lập Phiếu Nhập</button>
+            </div>
+            <div class="table-responsive">
+                <table class="data-table" id="table-phieunhap">
+                    <thead>
+                        <tr><th>Mã Phiếu</th><th>Ngày Nhập</th><th>Nhà Cung Cấp</th><th>NV Lập</th><th>Chi Tiết Mặt Hàng (Mã - SL)</th><th>Tổng Tiền (VND)</th><th>Hành động</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><span class="badge">PN001</span></td><td>2026-05-01</td><td>NCC001</td><td>NV005</td><td>• MH001 (200 Kg)<br>• MH005 (50 Kg)</td><td>4,000,000</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'phieunhap')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">PN002</span></td><td>2026-05-02</td><td>NCC002</td><td>NV003</td><td>• MH002 (200 Chai)</td><td>8,000,000</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'phieunhap')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">PN003</span></td><td>2026-05-03</td><td>NCC003</td><td>NV005</td><td>• MH003 (100 Thùng)</td><td>10,500,000</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'phieunhap')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">PN004</span></td><td>2026-05-04</td><td>NCC005</td><td>NV002</td><td>• MH006 (20 Cái)<br>• MH007 (10 Cái)</td><td>25,000,000</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'phieunhap')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">PN005</span></td><td>2026-05-05</td><td>NCC004</td><td>NV003</td><td>• MH008 (100 Túi)</td><td>12,000,000</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'phieunhap')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">PN006</span></td><td>2026-05-06</td><td>NCC006</td><td>NV005</td><td>• MH004 (150 Chai)</td><td>4,500,000</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'phieunhap')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">PN007</span></td><td>2026-05-07</td><td>NCC007</td><td>NV003</td><td>• MH010 (50 Thùng)</td><td>14,500,000</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'phieunhap')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">PN008</span></td><td>2026-05-08</td><td>NCC008</td><td>NV005</td><td>• MH015 (80 Hộp)</td><td>3,040,000</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'phieunhap')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">PN009</span></td><td>2026-05-09</td><td>NCC009</td><td>NV002</td><td>• MH006 (15 Cái)</td><td>14,250,000</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'phieunhap')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">PN010</span></td><td>2026-05-10</td><td>NCC010</td><td>NV010</td><td>• MH013 (40 Cái)</td><td>12,800,000</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'phieunhap')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">PN011</span></td><td>2026-05-11</td><td>NCC011</td><td>NV003</td><td>• MH005 (200 Kg)</td><td>4,000,000</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'phieunhap')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">PN012</span></td><td>2026-05-12</td><td>NCC012</td><td>NV005</td><td>• MH001 (500 Kg)</td><td>7,500,000</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'phieunhap')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">PN013</span></td><td>2026-05-13</td><td>NCC013</td><td>NV003</td><td>• MH011 (100 Chai)</td><td>1,100,000</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'phieunhap')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">PN014</span></td><td>2026-05-14</td><td>NCC014</td><td>NV005</td><td>• MH012 (60 Chai)<br>• MH014 (30 Gói)</td><td>3,270,000</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'phieunhap')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">PN015</span></td><td>2026-05-15</td><td>NCC015</td><td>NV015</td><td>• MH007 (25 Cái)</td><td>15,000,000</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'phieunhap')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="tab-phieuxuat" class="tab-panel">
+            <div class="panel-header">
+                <h2>Quản Lý Lịch Sử Xuất Kho (15 Lịch Sử)</h2>
+                <button class="btn btn-primary" onclick="openAddModal('phieuxuat')">+ Lập Phiếu Xuất</button>
+            </div>
+            <div class="table-responsive">
+                <table class="data-table" id="table-phieuxuat">
+                    <thead>
+                        <tr><th>Mã Phiếu</th><th>Ngày Xuất</th><th>Khách Hàng</th><th>NV Lập</th><th>NV Giao</th><th>Chi Tiết Mặt Hàng (Mã - SL)</th><th>Tổng Tiền (VND)</th><th>Hành động</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><span class="badge">PX001</span></td><td>2026-05-02</td><td>KH001</td><td>NV002</td><td>NV011</td><td>• MH001 (50 Kg)<br>• MH002 (10 Chai)</td><td>1,500,000</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'phieuxuat')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">PX002</span></td><td>2026-05-03</td><td>KH003</td><td>NV003</td><td>NV011</td><td>• MH006 (2 Cái)<br>• MH007 (1 Cái)</td><td>3,150,000</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'phieuxuat')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">PX003</span></td><td>2026-05-04</td><td>KH002</td><td>NV002</td><td>NV012</td><td>• MH003 (5 Thùng)<br>• MH004 (2 Chai)</td><td>684,000</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'phieuxuat')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">PX004</span></td><td>2026-05-05</td><td>KH005</td><td>NV003</td><td>NV011</td><td>• MH008 (10 Túi)</td><td>1,500,000</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'phieuxuat')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">PX005</span></td><td>2026-05-06</td><td>KH004</td><td>NV002</td><td>NV012</td><td>• MH003 (20 Thùng)</td><td>2,400,000</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'phieuxuat')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">PX006</span></td><td>2026-05-07</td><td>KH006</td><td>NV006</td><td>NV011</td><td>• MH009 (5 Túi)</td><td>850,000</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'phieuxuat')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">PX007</span></td><td>2026-05-08</td><td>KH007</td><td>NV003</td><td>NV011</td><td>• MH010 (10 Thùng)</td><td>3,350,000</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'phieuxuat')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">PX008</span></td><td>2026-05-09</td><td>KH008</td><td>NV002</td><td>NV012</td><td>• MH013 (5 Cái)</td><td>2,050,000</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'phieuxuat')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">PX009</span></td><td>2026-05-10</td><td>KH009</td><td>NV007</td><td>NV011</td><td>• MH001 (100 Kg)</td><td>2,000,000</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'phieuxuat')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">PX010</span></td><td>2026-05-11</td><td>KH010</td><td>NV003</td><td>NV012</td><td>• MH011 (20 Chai)</td><td>300,000</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'phieuxuat')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">PX011</span></td><td>2026-05-12</td><td>KH011</td><td>NV002</td><td>NV011</td><td>• MH012 (15 Chai)</td><td>450,000</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'phieuxuat')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">PX012</span></td><td>2026-05-13</td><td>KH012</td><td>NV007</td><td>NV012</td><td>• MH005 (30 Kg)</td><td>840,000</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'phieuxuat')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">PX013</span></td><td>2026-05-14</td><td>KH013</td><td>NV003</td><td>NV011</td><td>• MH014 (10 Gói)</td><td>820,000</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'phieuxuat')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">PX014</span></td><td>2026-05-15</td><td>KH014</td><td>NV002</td><td>NV012</td><td>• MH015 (20 Hộp)</td><td>960,000</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'phieuxuat')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">PX015</span></td><td>2026-05-16</td><td>KH015</td><td>NV006</td><td>NV011</td><td>• MH006 (4 Cái)</td><td>4,600,000</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'phieuxuat')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <div id="dataModal" class="modal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="modalTitle">Thêm Mới Dữ Liệu</h3>
+                <span class="modal-close" onclick="closeModal()">&times;</span>
+            </div>
+            <form id="dynamicForm" onsubmit="handleFormSubmit(event)">
+                <div id="formInputsContainer">
+                    </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="closeModal()">Hủy Bỏ</button>
+                    <button type="submit" class="btn btn-primary">Xác Nhận Lưu</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Cấu trúc danh sách các trường thông tin chuẩn nghiệp vụ của từng đối tượng
+        const tableConfigs = {
+            hanghoa: [
+                { label: 'Mã Hàng Hóa', key: 'ma', readonly: true },
+                { label: 'Tên Hàng Hóa', key: 'ten' },
+                { label: 'Loại Hàng', key: 'loai' },
+                { label: 'Đơn Vị Tính', key: 'dvt' },
+                { label: 'Giá Nhập (VND)', key: 'gianhap' },
+                { label: 'Giá Bán (VND)', key: 'giaban' }
+            ],
+            nhacungcap: [
+                { label: 'Mã Nhà Cung Cấp', key: 'ma', readonly: true },
+                { label: 'Tên Nhà Cung Cấp', key: 'ten' },
+                { label: 'Địa Chỉ', key: 'diachi' },
+                { label: 'Số Điện Thoại', key: 'sdt' }
+            ],
+            khachhang: [
+                { label: 'Mã Khách Hàng', key: 'ma', readonly: true },
+                { label: 'Tên Khách Hàng', key: 'ten' },
+                { label: 'Địa Chỉ', key: 'diachi' },
+                { label: 'Số Điện Thoại', key: 'sdt' },
+                { label: 'Email Liên Hệ', key: 'email' }
+            ],
+            nhanvien: [
+                { label: 'Mã Nhân Viên', key: 'ma', readonly: true },
+                { label: 'Họ Tên Nhân Viên', key: 'ten' },
+                { label: 'Chức Vụ', key: 'chucvu' },
+                { label: 'Tài Khoản Hệ Thống', key: 'taikhoan' },
+                { label: 'Quyền Truy Cập', key: 'quyen' }
+            ],
+            phieunhap: [
+                { label: 'Mã Phiếu Nhập', key: 'ma', readonly: true },
+                { label: 'Ngày Nhập Kho', key: 'ngay' },
+                { label: 'Mã Nhà Cung Cấp', key: 'ncc' },
+                { label: 'Mã Nhân Viên Lập', key: 'nv' },
+                { label: 'Danh Sách Mặt Hàng', key: 'chitiet' },
+                { label: 'Tổng Tiền Giá Trị (VND)', key: 'tongtien' }
+            ],
+            phieuxuat: [
+                { label: 'Mã Phiếu Xuất', key: 'ma', readonly: true },
+                { label: 'Ngày Xuất Kho', key: 'ngay' },
+                { label: 'Mã Khách Hàng', key: 'kh' },
+                { label: 'Mã Nhân Viên Lập', key: 'nvlap' },
+                { label: 'Mã Nhân Viên Giao', key: 'nvgiao' },
+                { label: 'Danh Sách Mặt Hàng Xuất', key: 'chitiet' },
+                { label: 'Tổng Tiền Thu Về (VND)', key: 'tongtien' }
+            ]
+        };
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.remove('active'));
+            document.querySelectorAll('.menu-item').forEach(item => item.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+            document.getElementById('globalSearch').value = ""; 
+            searchActiveTable();
+        }
+
+        // ================= CẬP NHẬT: PHẦN SỬA ĐÃ ĐƯỢC LÀM LẠI CHUYÊN NGHIỆP =================
+        function openEditModal(button, type) {
+            const config = tableConfigs[type];
+            const row = button.closest('tr');
+            const cells = row.querySelectorAll('td');
+            
+            document.getElementById('modalTitle').innerText = "Cập Nhật Thông Tin";
+            const container = document.getElementById('formInputsContainer');
+            container.innerHTML = ""; // Xóa form cũ
+
+            config.forEach((field, index) => {
+                const group = document.createElement('div');
+                group.className = 'form-group';
+                group.style.marginBottom = '15px'; // Tạo khoảng cách thoáng giữa các ô dữ liệu
+                
+                // Lấy nội dung văn bản hiện tại của cột trong hàng tương ứng
+                let cellValue = cells[index] ? cells[index].innerText.trim() : "";
+                
+                // Nếu là mã khóa chính, kích hoạt chế độ "Chỉ đọc" (readonly) để đảm bảo toàn vẹn dữ liệu
+                const isReadOnly = field.readonly ? "readonly style='background:#f4f4f4; color:#666; cursor:not-allowed;'" : "";
+
+                // Sinh cấu trúc Input Form chuyên nghiệp có label tên rõ ràng
+                group.innerHTML = `
+                    <label style="font-weight:600; display:block; margin-bottom:6px; color:#333; font-size:14px;">${field.label}</label>
+                    <input type="text" value="${cellValue}" ${isReadOnly} required style="width:100%; padding:10px; border:1px solid #ccc; border-radius:4px; font-size:14px; box-sizing: border-box;">
+                `;
+                container.appendChild(group);
+            });
+            document.getElementById('dataModal').style.display = 'flex';
+        }
+
+        // Hàm xử lý hiển thị Form khi bấm Thêm Mới (Form Trống)
+        function openAddModal(type) {
+            const config = tableConfigs[type];
+            document.getElementById('modalTitle').innerText = "Thêm Mới Dữ Liệu";
+            const container = document.getElementById('formInputsContainer');
+            container.innerHTML = ""; 
+
+            config.forEach(field => {
+                const group = document.createElement('div');
+                group.className = 'form-group';
+                group.style.marginBottom = '15px';
+                
+                group.innerHTML = `
+                    <label style="font-weight:600; display:block; margin-bottom:6px; color:#333; font-size:14px;">${field.label}</label>
+                    <input type="text" placeholder="Nhập ${field.label.toLowerCase()}..." required style="width:100%; padding:10px; border:1px solid #ccc; border-radius:4px; font-size:14px; box-sizing: border-box;">
+                `;
+                container.appendChild(group);
+            });
+            document.getElementById('dataModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('dataModal').style.display = 'none';
+        }
+
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            alert("Thao tác đồng bộ dữ liệu thành công! Hệ thống đã ghi nhận các thay đổi chỉnh sửa của bạn.");
+            closeModal();
+        }
+
+        function triggerDelete(button) {
+            if(confirm("Xác nhận XÓA dòng dữ liệu này khỏi Cơ sở dữ liệu?")) {
+                button.closest('tr').remove();
+            }
+        }
+
+        function searchActiveTable() {
+            let filter = document.getElementById("globalSearch").value.toLowerCase();
+            let activePanel = document.querySelector('.tab-panel.active');
+            let rows = activePanel.getElementsByTagName("table")[0].getElementsByTagName("tbody")[0].getElementsByTagName("tr");
+            
+            for (let i = 0; i < rows.length; i++) {
+                let rowText = rows[i].innerText.toLowerCase();
+                rows[i].style.display = rowText.includes(filter) ? "" : "none";
+            }
+        }
+    </script>
+</body>
+</html>
+<div id="dashboard-content" class="dashboard-container">
+    <h2 class="page-title">Tổng Quan Hoạt Động Kho Hàng</h2>
+    
+    <div class="dashboard-cards">
+        <div class="card card-blue">
+            <div class="card-icon">📦</div>
+            <div class="card-info">
+                <h3>Hàng Hóa</h3>
+                <p class="card-count">150</p>
+                <span>Mặt hàng trong danh mục</span>
+            </div>
+        </div>
+        
+        <div class="card card-green">
+            <div class="card-icon">🚚</div>
+            <div class="card-info">
+                <h3>Nhà Cung Cấp</h3>
+                <p class="card-count">16</p>
+                <span>Đối tác cung ứng</span>
+            </div>
+        </div>
+        
+        <div class="card card-orange">
+            <div class="card-icon">👥</div>
+            <div class="card-info">
+                <h3>Khách Hàng</h3>
+                <p class="card-count">42</p>
+                <span>Khách hàng giao dịch</span>
+            </div>
+        </div>
+
+        <div class="card card-red">
+            <div class="card-icon">⚠️</div>
+            <div class="card-info">
+                <h3>Cảnh Báo Tồn</h3>
+                <p class="card-count">8</p>
+                <span>Sản phẩm sắp hết hàng</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="dashboard-details">
+        <div class="details-box">
+            <h3>⏱️ Giao Dịch Kho Gần Đây</h3>
+            <table class="dashboard-table">
+                <thead>
+                    <tr>
+                        <th>Mã Phiếu</th>
+                        <th>Loại Hoạt Động</th>
+                        <th>Ngày Thực Hiện</th>
+                        <th>Tổng Tiền</th>
+                        <th>Trạng Thái</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>PN016</td>
+                        <td><span class="badge badge-import">Nhập kho</span></td>
+                        <td>2026-05-20</td>
+                        <td>2.000.000 đ</td>
+                        <td><strong style="color: green;">✓ Thành công</strong></td>
+                    </tr>
+                    <tr>
+                        <td>PX012</td>
+                        <td><span class="badge badge-export">Xuất kho</span></td>
+                        <td>2026-05-18</td>
+                        <td>4.500.000 đ</td>
+                        <td><strong style="color: green;">✓ Thành công</strong></td>
+                    </tr>
+                    <tr>
+                        <td>PN015</td>
+                        <td><span class="badge badge-import">Nhập kho</span></td>
+                        <td>2026-05-15</td>
+                        <td>12.800.000 đ</td>
+                        <td><strong style="color: green;">✓ Thành công</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="details-box short-box">
+            <h3>⚙️ Trạng Thái Vận Hành</h3>
+            <ul class="status-list">
+                <li><strong>Hệ quản trị:</strong> PostgreSQL (Connected)</li>
+                <li><strong>Nhóm thực hiện:</strong> Nhóm 2</li>
+                <li><strong>Cập nhật dữ liệu:</strong> Thời gian thực (Real-time)</li>
+            </ul>
+        </div>
+    </div>
+</div>
