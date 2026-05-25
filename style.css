@@ -140,6 +140,69 @@ body { background-color: #f4f6f9; color: #333; display: flex; min-height: 100vh;
     min-width: 400px;
 }
 
+.growth-chart-card {
+    margin-bottom: 20px;
+}
+
+.growth-chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 12px;
+}
+
+.growth-chart-header h3 {
+    margin-bottom: 4px;
+}
+
+.growth-chart-header p {
+    color: #6c757d;
+    font-size: 13px;
+}
+
+.growth-chart-legend {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    font-size: 13px;
+    color: #495057;
+}
+
+.growth-chart-legend span {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.legend-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 999px;
+    display: inline-block;
+}
+
+.legend-import {
+    background: #0d6efd;
+}
+
+.legend-export {
+    background: #198754;
+}
+
+.growth-chart-summary {
+    color: #495057;
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+.growth-chart {
+    width: 100%;
+    height: 280px;
+    overflow: visible;
+    display: block;
+}
+
 .short-box {
     flex: 1;
     min-width: 250px;

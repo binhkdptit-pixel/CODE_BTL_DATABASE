@@ -227,6 +227,7 @@ function updateHomeOverview() {
     }
 
     renderRecentTransactions();
+    renderGrowthChart();
 }
 
 function renderRecentTransactions() {
@@ -279,6 +280,125 @@ function renderRecentTransactions() {
 
     renderRows(importBody, recentImports, 4);
     renderRows(exportBody, recentExports, 4);
+}
+
+function parseCurrencyValue(value) {
+    const cleaned = String(value || '').replace(/[^\d.-]/g, '');
+    const parsed = Number(cleaned);
+    return Number.isNaN(parsed) ? 0 : parsed;
+}
+
+function formatCurrencyValue(value) {
+    return new Intl.NumberFormat('vi-VN', {
+        style: 'currency',
+        currency: 'VND',
+        maximumFractionDigits: 0
+    }).format(value);
+}
+
+function renderGrowthChart() {
+    const svg = document.getElementById('growthChart');
+    const summary = document.getElementById('growthChartSummary');
+    if (!svg) return;
+
+    const entries = [...database.phieunhap, ...database.phieuxuat]
+        .filter(item => item.ngay)
+        .map(item => ({
+            date: item.ngay,
+            type: item.ncc ? 'import' : 'export',
+            value: parseCurrencyValue(item.tongtien)
+        }));
+
+    const grouped = new Map();
+    entries.forEach(entry => {
+        const key = entry.date;
+        if (!grouped.has(key)) {
+            grouped.set(key, { date: key, import: 0, export: 0 });
+        }
+        const bucket = grouped.get(key);
+        bucket[entry.type] += entry.value;
+    });
+
+    const points = Array.from(grouped.values()).sort((a, b) => new Date(a.date) - new Date(b.date));
+
+    svg.innerHTML = '';
+
+    if (points.length === 0) {
+        svg.setAttribute('height', '0');
+        if (summary) summary.textContent = 'Chưa có dữ liệu giao dịch để hiển thị biểu đồ.';
+        return;
+    }
+
+    svg.setAttribute('height', '280');
+
+    const width = 700;
+    const height = 260;
+    const padding = 40;
+    const plotWidth = width - padding * 2;
+    const plotHeight = height - padding * 2;
+    const maxValue = Math.max(...points.map(point => Math.max(point.import, point.export)), 1);
+    const step = Math.ceil(maxValue / 4 / 100000) * 100000;
+    const yMax = Math.max(step * 4, maxValue);
+    const yLabels = [0, 1, 2, 3, 4].map(index => yMax - index * (yMax / 4));
+
+    const gridLines = yLabels.map((value, index) => {
+        const y = padding + (index * plotHeight) / 4;
+        return `<line x1="${padding}" y1="${y}" x2="${width - padding}" y2="${y}" stroke="#e9ecef" stroke-dasharray="4 4" />`;
+    }).join('');
+
+    const yLabelMarkup = yLabels.map((value, index) => {
+        const y = padding + (index * plotHeight) / 4;
+        return `<text x="${padding - 12}" y="${y + 4}" text-anchor="end" font-size="11" fill="#6c757d">${formatCurrencyValue(value)}</text>`;
+    }).join('');
+
+    const xLabels = points.map((point, index) => {
+        const x = padding + (index * plotWidth) / Math.max(points.length - 1, 1);
+        const dateLabel = new Date(point.date).toLocaleDateString('vi-VN', {
+            day: '2-digit',
+            month: '2-digit'
+        });
+        return `<text x="${x}" y="${height - 12}" text-anchor="middle" font-size="11" fill="#6c757d">${dateLabel}</text>`;
+    }).join('');
+
+    const createLine = (key) => {
+        const coords = points.map((point, index) => {
+            const x = padding + (index * plotWidth) / Math.max(points.length - 1, 1);
+            const y = height - padding - (point[key] / yMax) * plotHeight;
+            return `${index === 0 ? 'M' : 'L'} ${x} ${y}`;
+        }).join(' ');
+        return coords;
+    };
+
+    const importPath = createLine('import');
+    const exportPath = createLine('export');
+
+    const importDots = points.map((point, index) => {
+        const x = padding + (index * plotWidth) / Math.max(points.length - 1, 1);
+        const y = height - padding - (point.import / yMax) * plotHeight;
+        return `<circle cx="${x}" cy="${y}" r="4" fill="#0d6efd" />`;
+    }).join('');
+
+    const exportDots = points.map((point, index) => {
+        const x = padding + (index * plotWidth) / Math.max(points.length - 1, 1);
+        const y = height - padding - (point.export / yMax) * plotHeight;
+        return `<circle cx="${x}" cy="${y}" r="4" fill="#198754" />`;
+    }).join('');
+
+    svg.innerHTML = `
+        ${gridLines}
+        ${yLabelMarkup}
+        ${xLabels}
+        <path d="${importPath}" fill="none" stroke="#0d6efd" stroke-width="3" stroke-linecap="round" />
+        <path d="${exportPath}" fill="none" stroke="#198754" stroke-width="3" stroke-linecap="round" />
+        ${importDots}
+        ${exportDots}
+    `;
+
+    const totalImport = points.reduce((sum, point) => sum + point.import, 0);
+    const totalExport = points.reduce((sum, point) => sum + point.export, 0);
+    if (summary) {
+        summary.textContent = `Tổng nhập: ${formatCurrencyValue(totalImport)} | Tổng xuất: ${formatCurrencyValue(totalExport)}`;
+    }
 }
 
 function openAddModal(type) {
