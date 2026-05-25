@@ -9,16 +9,18 @@
 <body>
 
     <aside class="sidebar">
-        <div class="sidebar-brand">
+        <div class="sidebar-brand" onclick="switchTab(event, 'tab-home')">
             <h3>KHO HÀNG N2</h3>
         </div>
         <ul class="sidebar-menu">
-            <li class="menu-item active" onclick="switchTab('tab-hanghoa')">📦 Hàng Hóa</li>
-            <li class="menu-item" onclick="switchTab('tab-nhacungcap')">🏢 Nhà Cung Cấp</li>
-            <li class="menu-item" onclick="switchTab('tab-khachhang')">👥 Khách Hàng</li>
-            <li class="menu-item" onclick="switchTab('tab-nhanvien')">🪪 Nhân Viên</li>
-            <li class="menu-item" onclick="switchTab('tab-phieunhap')">📥 Phiếu Nhập</li>
-            <li class="menu-item" onclick="switchTab('tab-phieuxuat')">📤 Phiếu Xuất</li>
+            <li class="menu-item" onclick="switchTab(event, 'tab-home')">🏠 Trang Chủ</li>
+            <li class="menu-item active" onclick="switchTab(event, 'tab-hanghoa')">📦 Hàng Hóa</li>
+            <li class="menu-item" onclick="switchTab(event, 'tab-nhacungcap')">🏢 Nhà Cung Cấp</li>
+            <li class="menu-item" onclick="switchTab(event, 'tab-khachhang')">👥 Khách Hàng</li>
+            <li class="menu-item" onclick="switchTab(event, 'tab-nhanvien')">🪪 Nhân Viên</li>
+            <li class="menu-item" onclick="switchTab(event, 'tab-phieunhap')">📥 Phiếu Nhập</li>
+            <li class="menu-item" onclick="switchTab(event, 'tab-phieuxuat')">📤 Phiếu Xuất</li>
+            <li class="menu-item" onclick="switchTab(event, 'tab-khohang')">🏬 Kho Hàng</li>
             <li class="logout-item"><a href="login.html">🚪 Đăng xuất</a></li>
         </ul>
     </aside>
@@ -32,6 +34,99 @@
                 <span>Xin chào, <b>Quản trị viên (Nhóm 2)</b></span>
             </div>
         </header>
+
+        <div id="tab-home" class="tab-panel">
+            <div class="dashboard-container">
+                <div class="page-title">Trang Chủ Quản Lý Kho</div>
+                <div class="dashboard-cards">
+                    <div class="card card-blue">
+                        <div class="card-icon">📦</div>
+                        <div class="card-info">
+                            <h3>Số lượng hàng hóa</h3>
+                            <div class="card-count" id="homeCountHanghoa">0</div>
+                            <span>Danh mục đang quản lý</span>
+                        </div>
+                    </div>
+                    <div class="card card-green">
+                        <div class="card-icon">🏢</div>
+                        <div class="card-info">
+                            <h3>Nhà cung cấp</h3>
+                            <div class="card-count" id="homeCountNCC">0</div>
+                            <span>Đối tác cung ứng</span>
+                        </div>
+                    </div>
+                    <div class="card card-orange">
+                        <div class="card-icon">👥</div>
+                        <div class="card-info">
+                            <h3>Khách hàng</h3>
+                            <div class="card-count" id="homeCountKH">0</div>
+                            <span>Khách hàng đã lưu</span>
+                        </div>
+                    </div>
+                    <div class="card card-red">
+                        <div class="card-icon">🪪</div>
+                        <div class="card-info">
+                            <h3>Nhân viên</h3>
+                            <div class="card-count" id="homeCountNV">0</div>
+                            <span>Thành viên trong hệ thống</span>
+                        </div>
+                    </div>
+                    <div class="card card-blue">
+                        <div class="card-icon">📥</div>
+                        <div class="card-info">
+                            <h3>Phiếu nhập</h3>
+                            <div class="card-count" id="homeCountPN">0</div>
+                            <span>Lịch sử nhập kho</span>
+                        </div>
+                    </div>
+                    <div class="card card-green">
+                        <div class="card-icon">📤</div>
+                        <div class="card-info">
+                            <h3>Phiếu xuất</h3>
+                            <div class="card-count" id="homeCountPX">0</div>
+                            <span>Lịch sử xuất kho</span>
+                        </div>
+                    </div>
+                    <div class="card card-orange">
+                        <div class="card-icon">🏬</div>
+                        <div class="card-info">
+                            <h3>Kho hàng</h3>
+                            <div class="card-count" id="homeCountKHO">0</div>
+                            <span>Mục kho đang quản lý</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="details-box">
+                    <h3>Tình trạng kho hàng</h3>
+                    <table class="dashboard-table">
+                        <thead>
+                            <tr><th>Mã Kho</th><th>Mã Hàng</th><th>Tồn Kho</th><th>Ghi Chú</th></tr>
+                        </thead>
+                        <tbody id="lowStockBody"></tbody>
+                    </table>
+                </div>
+                <div class="dashboard-details">
+                    <div class="details-box">
+                        <h3>Lịch sử nhập kho gần đây</h3>
+                        <table class="dashboard-table">
+                            <thead>
+                                <tr><th>Mã Phiếu</th><th>Ngày Nhập</th><th>Mã NCC</th><th>Tổng Tiền</th></tr>
+                            </thead>
+                            <tbody id="recentImportBody"></tbody>
+                        </table>
+                    </div>
+                    <div class="details-box">
+                        <h3>Lịch sử xuất kho gần đây</h3>
+                        <table class="dashboard-table">
+                            <thead>
+                                <tr><th>Mã Phiếu</th><th>Ngày Xuất</th><th>Mã KH</th><th>Tổng Tiền</th></tr>
+                            </thead>
+                            <tbody id="recentExportBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div id="tab-hanghoa" class="tab-panel active">
             <div class="panel-header">
@@ -77,7 +172,7 @@
                     <tbody>
                         <tr><td><span class="badge">NCC001</span></td><td>Tổng Công ty Lương thực Miền Bắc</td><td>Hai Bà Trưng, Hà Nội</td><td>0243.888.999</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'nhacungcap')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
                         <tr><td><span class="badge">NCC002</span></td><td>Tập đoàn Dầu thực vật Cái Lân</td><td>KCN Cái Lân, Quảng Ninh</td><td>0203.345.678</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'nhacungcap')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
-                        <tr><td><span class="badge">NCC003</span></td><td>Công ty Cổ phần Acecook Việt Nam</td><td>Tân Bình, TP. Hồ Chí Minh</td><td>0283.815.406</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'nhacungcap')">Sửa</button><button class="btn-action btn-edit" onclick="openEditModal(this, 'nhacungcap')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
+                        <tr><td><span class="badge">NCC003</span></td><td>Công ty Cổ phần Acecook Việt Nam</td><td>Tân Bình, TP. Hồ Chí Minh</td><td>0283.815.406</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'nhacungcap')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
                         <tr><td><span class="badge">NCC004</span></td><td>Công ty TNHH Quốc tế Unilever VN</td><td>Quận 7, TP. Hồ Chí Minh</td><td>0285.413.568</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'nhacungcap')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
                         <tr><td><span class="badge">NCC005</span></td><td>Tập đoàn Sunhouse Toàn Cầu</td><td>Thạch Thất, Hà Nội</td><td>0243.733.996</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'nhacungcap')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
                         <tr><td><span class="badge">NCC006</span></td><td>Công ty Cổ phần Hàng tiêu dùng Masan</td><td>Quận 1, TP. Hồ Chí Minh</td><td>0286.255.566</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'nhacungcap')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this)">Xóa</button></td></tr>
@@ -218,6 +313,37 @@
                 </table>
             </div>
         </div>
+
+        <div id="tab-khohang" class="tab-panel">
+            <div class="panel-header">
+                <h2>Quản Lý Kho Hàng (15 Mục)</h2>
+                <button class="btn btn-primary" onclick="openAddModal('khohang')">+ Thêm Kho Hàng</button>
+            </div>
+            <div class="table-responsive">
+                <table class="data-table" id="table-khohang">
+                    <thead>
+                        <tr><th>Mã Kho</th><th>Mã Hàng</th><th>Tên Hàng</th><th>Số Lượng Tồn Kho</th><th>Số Lượng Dư Thừa</th><th>Ghi Chú</th><th>Hành động</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><span class="badge">KHO001</span></td><td>MH001</td><td>Gạo Tám Thơm Điện Biên</td><td>120</td><td>10</td><td>Còn hàng</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'khohang')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this, 'khohang')">Xóa</button></td></tr>
+                        <tr><td><span class="badge">KHO002</span></td><td>MH002</td><td>Dầu Ăn Neptune Light 1L</td><td>80</td><td>5</td><td>Hàng mới về</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'khohang')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this, 'khohang')">Xóa</button></td></tr>
+                        <tr><td><span class="badge">KHO003</span></td><td>MH003</td><td>Mì Hảo Hảo Tôm Chua Cay</td><td>240</td><td>20</td><td>Có thể giảm giá</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'khohang')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this, 'khohang')">Xóa</button></td></tr>
+                        <tr><td><span class="badge">KHO004</span></td><td>MH004</td><td>Nước mắm Nam Ngư 750ml</td><td>150</td><td>8</td><td>Hàng tiêu thụ nhanh</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'khohang')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this, 'khohang')">Xóa</button></td></tr>
+                        <tr><td><span class="badge">KHO005</span></td><td>MH005</td><td>Đường tinh luyện Biên Hòa</td><td>95</td><td>3</td><td>Cần kiểm tra</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'khohang')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this, 'khohang')">Xóa</button></td></tr>
+                        <tr><td><span class="badge">KHO006</span></td><td>MH006</td><td>Nồi Cơm Điện Toshiba 1.8L</td><td>30</td><td>2</td><td>Hàng cao giá</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'khohang')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this, 'khohang')">Xóa</button></td></tr>
+                        <tr><td><span class="badge">KHO007</span></td><td>MH007</td><td>Bếp từ đơn Sunhouse SHD6160</td><td>22</td><td>0</td><td>Khuyến mãi tốt</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'khohang')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this, 'khohang')">Xóa</button></td></tr>
+                        <tr><td><span class="badge">KHO008</span></td><td>MH008</td><td>Bột Giặt Omo Matic 4.5kg</td><td>160</td><td>15</td><td>Hàng bán chạy</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'khohang')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this, 'khohang')">Xóa</button></td></tr>
+                        <tr><td><span class="badge">KHO009</span></td><td>MH009</td><td>Nước xả vải Comfort 3.2L</td><td>140</td><td>7</td><td>Hàng ổn định</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'khohang')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this, 'khohang')">Xóa</button></td></tr>
+                        <tr><td><span class="badge">KHO010</span></td><td>MH010</td><td>Sữa tươi Vinamilk ít đường</td><td>175</td><td>12</td><td>Cần nhập thêm sớm</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'khohang')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this, 'khohang')">Xóa</button></td></tr>
+                        <tr><td><span class="badge">KHO011</span></td><td>MH011</td><td>Tương ớt Chinsu chai 250g</td><td>190</td><td>18</td><td>Nhiều hàng tồn</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'khohang')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this, 'khohang')">Xóa</button></td></tr>
+                        <tr><td><span class="badge">KHO012</span></td><td>MH012</td><td>Nước rửa chén Sunlight Chanh</td><td>130</td><td>4</td><td>Hàng cần gia tăng</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'khohang')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this, 'khohang')">Xóa</button></td></tr>
+                        <tr><td><span class="badge">KHO013</span></td><td>MH013</td><td>Quạt đứng Senko GTS1628</td><td>40</td><td>1</td><td>Hàng ít</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'khohang')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this, 'khohang')">Xóa</button></td></tr>
+                        <tr><td><span class="badge">KHO014</span></td><td>MH014</td><td>Hạt nêm Knorr thịt thăn 900g</td><td>85</td><td>6</td><td>Cần kiểm tra hạn dùng</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'khohang')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this, 'khohang')">Xóa</button></td></tr>
+                        <tr><td><span class="badge">KHO015</span></td><td>MH015</td><td>Bánh quy Cosy Kinh Đô marie</td><td>110</td><td>9</td><td>Hàng ổn định</td><td><button class="btn-action btn-edit" onclick="openEditModal(this, 'khohang')">Sửa</button><button class="btn-action btn-delete" onclick="triggerDelete(this, 'khohang')">Xóa</button></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </main>
 
     <div id="dataModal" class="modal">
@@ -226,7 +352,7 @@
                 <h3 id="modalTitle">Thêm Mới Dữ Liệu</h3>
                 <span class="modal-close" onclick="closeModal()">&times;</span>
             </div>
-            <form id="dynamicForm" onsubmit="handleFormSubmit(event)">
+            <form id="dynamicForm">
                 <div id="formInputsContainer">
                     </div>
                 <div class="modal-footer">
@@ -237,233 +363,6 @@
         </div>
     </div>
 
-    <script>
-        // Cấu trúc danh sách các trường thông tin chuẩn nghiệp vụ của từng đối tượng
-        const tableConfigs = {
-            hanghoa: [
-                { label: 'Mã Hàng Hóa', key: 'ma', readonly: true },
-                { label: 'Tên Hàng Hóa', key: 'ten' },
-                { label: 'Loại Hàng', key: 'loai' },
-                { label: 'Đơn Vị Tính', key: 'dvt' },
-                { label: 'Giá Nhập (VND)', key: 'gianhap' },
-                { label: 'Giá Bán (VND)', key: 'giaban' }
-            ],
-            nhacungcap: [
-                { label: 'Mã Nhà Cung Cấp', key: 'ma', readonly: true },
-                { label: 'Tên Nhà Cung Cấp', key: 'ten' },
-                { label: 'Địa Chỉ', key: 'diachi' },
-                { label: 'Số Điện Thoại', key: 'sdt' }
-            ],
-            khachhang: [
-                { label: 'Mã Khách Hàng', key: 'ma', readonly: true },
-                { label: 'Tên Khách Hàng', key: 'ten' },
-                { label: 'Địa Chỉ', key: 'diachi' },
-                { label: 'Số Điện Thoại', key: 'sdt' },
-                { label: 'Email Liên Hệ', key: 'email' }
-            ],
-            nhanvien: [
-                { label: 'Mã Nhân Viên', key: 'ma', readonly: true },
-                { label: 'Họ Tên Nhân Viên', key: 'ten' },
-                { label: 'Chức Vụ', key: 'chucvu' },
-                { label: 'Tài Khoản Hệ Thống', key: 'taikhoan' },
-                { label: 'Quyền Truy Cập', key: 'quyen' }
-            ],
-            phieunhap: [
-                { label: 'Mã Phiếu Nhập', key: 'ma', readonly: true },
-                { label: 'Ngày Nhập Kho', key: 'ngay' },
-                { label: 'Mã Nhà Cung Cấp', key: 'ncc' },
-                { label: 'Mã Nhân Viên Lập', key: 'nv' },
-                { label: 'Danh Sách Mặt Hàng', key: 'chitiet' },
-                { label: 'Tổng Tiền Giá Trị (VND)', key: 'tongtien' }
-            ],
-            phieuxuat: [
-                { label: 'Mã Phiếu Xuất', key: 'ma', readonly: true },
-                { label: 'Ngày Xuất Kho', key: 'ngay' },
-                { label: 'Mã Khách Hàng', key: 'kh' },
-                { label: 'Mã Nhân Viên Lập', key: 'nvlap' },
-                { label: 'Mã Nhân Viên Giao', key: 'nvgiao' },
-                { label: 'Danh Sách Mặt Hàng Xuất', key: 'chitiet' },
-                { label: 'Tổng Tiền Thu Về (VND)', key: 'tongtien' }
-            ]
-        };
-
-        function switchTab(tabId) {
-            document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.remove('active'));
-            document.querySelectorAll('.menu-item').forEach(item => item.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
-            event.currentTarget.classList.add('active');
-            document.getElementById('globalSearch').value = ""; 
-            searchActiveTable();
-        }
-
-        // ================= CẬP NHẬT: PHẦN SỬA ĐÃ ĐƯỢC LÀM LẠI CHUYÊN NGHIỆP =================
-        function openEditModal(button, type) {
-            const config = tableConfigs[type];
-            const row = button.closest('tr');
-            const cells = row.querySelectorAll('td');
-            
-            document.getElementById('modalTitle').innerText = "Cập Nhật Thông Tin";
-            const container = document.getElementById('formInputsContainer');
-            container.innerHTML = ""; // Xóa form cũ
-
-            config.forEach((field, index) => {
-                const group = document.createElement('div');
-                group.className = 'form-group';
-                group.style.marginBottom = '15px'; // Tạo khoảng cách thoáng giữa các ô dữ liệu
-                
-                // Lấy nội dung văn bản hiện tại của cột trong hàng tương ứng
-                let cellValue = cells[index] ? cells[index].innerText.trim() : "";
-                
-                // Nếu là mã khóa chính, kích hoạt chế độ "Chỉ đọc" (readonly) để đảm bảo toàn vẹn dữ liệu
-                const isReadOnly = field.readonly ? "readonly style='background:#f4f4f4; color:#666; cursor:not-allowed;'" : "";
-
-                // Sinh cấu trúc Input Form chuyên nghiệp có label tên rõ ràng
-                group.innerHTML = `
-                    <label style="font-weight:600; display:block; margin-bottom:6px; color:#333; font-size:14px;">${field.label}</label>
-                    <input type="text" value="${cellValue}" ${isReadOnly} required style="width:100%; padding:10px; border:1px solid #ccc; border-radius:4px; font-size:14px; box-sizing: border-box;">
-                `;
-                container.appendChild(group);
-            });
-            document.getElementById('dataModal').style.display = 'flex';
-        }
-
-        // Hàm xử lý hiển thị Form khi bấm Thêm Mới (Form Trống)
-        function openAddModal(type) {
-            const config = tableConfigs[type];
-            document.getElementById('modalTitle').innerText = "Thêm Mới Dữ Liệu";
-            const container = document.getElementById('formInputsContainer');
-            container.innerHTML = ""; 
-
-            config.forEach(field => {
-                const group = document.createElement('div');
-                group.className = 'form-group';
-                group.style.marginBottom = '15px';
-                
-                group.innerHTML = `
-                    <label style="font-weight:600; display:block; margin-bottom:6px; color:#333; font-size:14px;">${field.label}</label>
-                    <input type="text" placeholder="Nhập ${field.label.toLowerCase()}..." required style="width:100%; padding:10px; border:1px solid #ccc; border-radius:4px; font-size:14px; box-sizing: border-box;">
-                `;
-                container.appendChild(group);
-            });
-            document.getElementById('dataModal').style.display = 'flex';
-        }
-
-        function closeModal() {
-            document.getElementById('dataModal').style.display = 'none';
-        }
-
-        function handleFormSubmit(e) {
-            e.preventDefault();
-            alert("Thao tác đồng bộ dữ liệu thành công! Hệ thống đã ghi nhận các thay đổi chỉnh sửa của bạn.");
-            closeModal();
-        }
-
-        function triggerDelete(button) {
-            if(confirm("Xác nhận XÓA dòng dữ liệu này khỏi Cơ sở dữ liệu?")) {
-                button.closest('tr').remove();
-            }
-        }
-
-        function searchActiveTable() {
-            let filter = document.getElementById("globalSearch").value.toLowerCase();
-            let activePanel = document.querySelector('.tab-panel.active');
-            let rows = activePanel.getElementsByTagName("table")[0].getElementsByTagName("tbody")[0].getElementsByTagName("tr");
-            
-            for (let i = 0; i < rows.length; i++) {
-                let rowText = rows[i].innerText.toLowerCase();
-                rows[i].style.display = rowText.includes(filter) ? "" : "none";
-            }
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
-<div id="dashboard-content" class="dashboard-container">
-    <h2 class="page-title">Tổng Quan Hoạt Động Kho Hàng</h2>
-    
-    <div class="dashboard-cards">
-        <div class="card card-blue">
-            <div class="card-icon">📦</div>
-            <div class="card-info">
-                <h3>Hàng Hóa</h3>
-                <p class="card-count">150</p>
-                <span>Mặt hàng trong danh mục</span>
-            </div>
-        </div>
-        
-        <div class="card card-green">
-            <div class="card-icon">🚚</div>
-            <div class="card-info">
-                <h3>Nhà Cung Cấp</h3>
-                <p class="card-count">16</p>
-                <span>Đối tác cung ứng</span>
-            </div>
-        </div>
-        
-        <div class="card card-orange">
-            <div class="card-icon">👥</div>
-            <div class="card-info">
-                <h3>Khách Hàng</h3>
-                <p class="card-count">42</p>
-                <span>Khách hàng giao dịch</span>
-            </div>
-        </div>
-
-        <div class="card card-red">
-            <div class="card-icon">⚠️</div>
-            <div class="card-info">
-                <h3>Cảnh Báo Tồn</h3>
-                <p class="card-count">8</p>
-                <span>Sản phẩm sắp hết hàng</span>
-            </div>
-        </div>
-    </div>
-
-    <div class="dashboard-details">
-        <div class="details-box">
-            <h3>⏱️ Giao Dịch Kho Gần Đây</h3>
-            <table class="dashboard-table">
-                <thead>
-                    <tr>
-                        <th>Mã Phiếu</th>
-                        <th>Loại Hoạt Động</th>
-                        <th>Ngày Thực Hiện</th>
-                        <th>Tổng Tiền</th>
-                        <th>Trạng Thái</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>PN016</td>
-                        <td><span class="badge badge-import">Nhập kho</span></td>
-                        <td>2026-05-20</td>
-                        <td>2.000.000 đ</td>
-                        <td><strong style="color: green;">✓ Thành công</strong></td>
-                    </tr>
-                    <tr>
-                        <td>PX012</td>
-                        <td><span class="badge badge-export">Xuất kho</span></td>
-                        <td>2026-05-18</td>
-                        <td>4.500.000 đ</td>
-                        <td><strong style="color: green;">✓ Thành công</strong></td>
-                    </tr>
-                    <tr>
-                        <td>PN015</td>
-                        <td><span class="badge badge-import">Nhập kho</span></td>
-                        <td>2026-05-15</td>
-                        <td>12.800.000 đ</td>
-                        <td><strong style="color: green;">✓ Thành công</strong></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <div class="details-box short-box">
-            <h3>⚙️ Trạng Thái Vận Hành</h3>
-            <ul class="status-list">
-                <li><strong>Hệ quản trị:</strong> PostgreSQL (Connected)</li>
-                <li><strong>Nhóm thực hiện:</strong> Nhóm 2</li>
-                <li><strong>Cập nhật dữ liệu:</strong> Thời gian thực (Real-time)</li>
-            </ul>
-        </div>
-    </div>
-</div>
